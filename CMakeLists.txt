@@ -3,7 +3,11 @@ set(This Intent)
 project (${This})
 set(CMAKE_CXX_STANDARD 11)
 
+#test case
+if(EXISTS googletest)
 add_subdirectory(googletest)
+add_subdirectory(test)
+endif()
 
 enable_testing()
 
@@ -17,5 +21,4 @@ set(HEADERS
 
 add_library(${This} STATIC ${SOURCES} ${HEADERS})
 
-add_subdirectory(test)
 add_subdirectory(execute)
