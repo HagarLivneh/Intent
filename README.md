@@ -19,5 +19,5 @@ $`mkdir build && cd build && cmake .. && make`
 ## Run executable
 $`./execut/Executor`      
 
-## Run tests
+## Run tests (availabe after building Google tests)
 $`./test/IntentTest`

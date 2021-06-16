@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-set(This Executor)
+set(This Intent_Reco)
 project(${This})
 
 enable_testing()
