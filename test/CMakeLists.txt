@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.2)
 set(This IntentTests)
 
 set(TestSources
+    main_test.cpp
     IntentTest.cpp
 )
 
