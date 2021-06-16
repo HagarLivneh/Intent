@@ -45,7 +45,7 @@ include/divisible/*
 ## Local 
 
 build/**/*
-
+googletest/*
 include/*
 lib/*
 bin/*

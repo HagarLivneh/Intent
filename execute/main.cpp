@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include "IntentType.h"
+#include "../IntentType.h"
 
 using namespace std; 
 

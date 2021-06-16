@@ -1,18 +1,20 @@
 cmake_minimum_required(VERSION 3.2)
-set(This IntentTests)
+set(This IntentTest)
+project(${This})
 
-set(TestSources
-    main_test.cpp
-    IntentTest.cpp
-)
+set(SOURCES
+        mainTest.cpp
+        IntentTest.cpp
+    )
 
-add_executable(${This} ${TestSources})
+add_executable(${This} ${SOURCES})
 
-target_link_libraries(${This} PUBLIC 
-    gtest_main
-    Intent)
+target_link_libraries(${This}
+        gtest_main
+        gtest
+        Intent
+        pthread
+    )
 
-add_test(
-    NAME ${This} 
-    COMMAND ${This}
-)
+add_test(NAME ${This}
+        COMMAND ${This})
