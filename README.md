@@ -17,7 +17,7 @@ $`cd googletest && mkdir build && cd build && cmake .. && make`
 $`mkdir build && cd build && cmake .. && make`      
 
 ## Run executable
-$`./execut/Executor`      
+$`./execut/IntentReco`      
 
 ## Run tests (availabe after building Google tests)
 $`./test/IntentTest`

@@ -1,8 +1,26 @@
 #include "IntentType.h"
 #include <iostream>
+#include <sstream>
+#include <vector>
 
-IntentType::IntentType(const vector<string> & words)
+
+vector<string> IntentType:: pharseStringToWords(const string & str)
 {
+    istringstream ss(str);
+    string single_word;
+    vector<string> words;
+
+    while( ss >> single_word )
+    {
+        words.push_back(single_word);
+    }
+
+    return words;
+}
+
+IntentType::IntentType(const string & sentence)
+{
+    vector<string> words = pharseStringToWords(sentence);
     vector<string> params = sentenceToParams(words);
     this->type = params[0];
     this->city = params[1];
@@ -12,14 +30,14 @@ IntentType::IntentType(const vector<string> & words)
 vector<string> IntentType::sentenceToParams(const vector<string> & words)
 {
     vector<string> params;
-    string city = "";
-    //Basic case
+    string city;
+    string type;
+    //init flags for finding words
     bool expect_city = false;
     bool expect_time = false;
-    string timePhrase = "";
     bool hasWeather = false;
     bool hasFactClue = false;
-    string chars = "!?-,.()";
+    string timePhrase = "";
 
     for (auto word : words)
     {
@@ -47,26 +65,27 @@ vector<string> IntentType::sentenceToParams(const vector<string> & words)
             expect_time = false;
             timePhrase += " "+ word;
         }
-        if(word.compare("fact") == 0 || word.compare("interesting") == 0 || word.compare("tell") == 0 || word.compare("something") == 0)
+
+        if (find(factClues.begin(), factClues.end(), word) != factClues.end() )
             hasFactClue = true;
         
-        else if(word.compare("weather") == 0 || word.compare("forecast") == 0)
+        else if (find(weatherClues.begin(), weatherClues.end(), word) != weatherClues.end() )
             hasWeather= true;
         
         else if(word.compare("in") == 0)
             expect_city = true;
         
-        else if(word.compare("at") == 0 || word.compare("on") == 0 || word.compare("next") == 0 || word.compare("last") == 0)
+        else if (find(expectedTime.begin(), expectedTime.end(), word) != expectedTime.end() )
         {
             expect_time = true;
-            timePhrase =word;
+            timePhrase = word;
         }
-        else if(word.compare("today") == 0 || word.compare("tomorrow") == 0 || word.compare("yesterday") == 0)
+        else if (find(timeClues.begin(), timeClues.end(), word) != timeClues.end() )
         {
             timePhrase = word;
         }    
     }
-    string type= hasWeather ? city.empty() ? "Get Weather" : "Get Weather City": hasFactClue? "Get Fact": "Intent Not Found";
+    type= hasWeather ? city.empty() ? "Get Weather" : "Get Weather City": hasFactClue? "Get Fact": "Intent Not Found";
     //params: 0-type 1-city 2-timePhrase
     params.push_back(type);
     params.push_back(city);
@@ -79,15 +98,15 @@ IntentType::~IntentType()
 
 string IntentType::getType()
 {
-    return type;
+    return this->type;
 }
 string IntentType::getCity()
 {
-    return city;
+    return this->city;
 }
 
 string IntentType::getTime()
 {
-    return time;
+    return this->time;
 }
 
